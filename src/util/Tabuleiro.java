@@ -51,7 +51,7 @@ public class Tabuleiro implements Runnable {
 		
 		this.posicoesRainhas = new int[numRainhas + 1];
 		posicoesRainhas[0] = 0;
-		stringCombinacoes = new StringBuffer(" ");
+		stringCombinacoes = new StringBuffer("");
 		
 	}
 	
@@ -103,9 +103,9 @@ public class Tabuleiro implements Runnable {
 					stringCombinacoes.append("0 ");
 				}
 			}
-			stringCombinacoes.append("\n ");
+			stringCombinacoes.append("\r\n");
 		}
-		stringCombinacoes.append("\n ");
+		stringCombinacoes.append("\r\n");
 	}
 	
 	
