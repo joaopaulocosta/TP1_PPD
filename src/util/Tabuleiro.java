@@ -1,13 +1,16 @@
 package util;
 
-public class Tabuleiro {
+public class Tabuleiro implements Runnable {
 	private int numRainhas;
 	private Celula matrizCelulas[][];
 	private int combinacoes;
 	private int posicoesRainhas[];
 	private int cont;
+	private int colunaInicial, colunaFinal;	
 	
-	public Tabuleiro(int numRainhas){
+	public Tabuleiro(int numRainhas, int colunaInicial, int colunaFinal){
+		this.colunaInicial = colunaInicial;
+		this.colunaFinal = colunaFinal;
 		cont = 0;
 		this.numRainhas = numRainhas;
 		this.matrizCelulas = new Celula[numRainhas][numRainhas];
@@ -31,9 +34,10 @@ public class Tabuleiro {
 		}
 	}
 	
-	public int getNumRainhas(){
-		return numRainhas;
+	public int getCombinacoes(){
+		return combinacoes;
 	}
+	
 	
 	//imprimi o tabuleiro, colocando R para uma celula que possui rainha, 1 para uma celula
 	//que esta sob campo de ataque de uma rainha e 0 para uma celula vazia e fora do campo de ataque
@@ -53,33 +57,52 @@ public class Tabuleiro {
 			}
 			System.out.println("");
 		}
+		
 	}
 	
 	
-	public void acharCombinacao(int linha, int coluna){
+	public void run(){
+		
+		int linha = 0;
+		int coluna = colunaInicial;
 		
 		while(true){
+	
 			//condiçao de parada do while, so acontece quando todo o tabuleiro for percorrido
-			if(linha == 0 && coluna == numRainhas)
+			if(linha == 0 && coluna == colunaFinal)
 				break;
 			
-			//percorre as colunas da linha a procura de uma celula livre para inserir a rainha
 			int i = coluna;
-			for(; i< numRainhas; i++){
-				if(matrizCelulas[linha][i].getEstado() == false){
-					this.inserirRainha(i);
-					this.preencherAlcance(linha, i);
-					coluna = 0;
-					linha++;
-					break;
+			if( linha == 0){	
+				for(; i< colunaFinal; i++){
+					if(matrizCelulas[linha][i].getEstado() == false){
+						this.inserirRainha(i);
+						this.preencherAlcance(linha, i);
+						coluna = 0;
+						linha++;
+						break;
+					}
 				}
 			}
+			else{ 
+				//percorre as colunas da linha a procura de uma celula livre para inserir a rainha	
+				for(; i< numRainhas; i++){
+					if(matrizCelulas[linha][i].getEstado() == false){
+						this.inserirRainha(i);
+						this.preencherAlcance(linha, i);
+						coluna = 0;
+						linha++;
+						break;
+					}
+				}
+			}
+			
 			/*caso o contador de rainhas inseridas verificar que foram inseridas N-Rainhas, uma nova
 			 * combinação foi formada*/
 			if(posicoesRainhas[0] == numRainhas){
 				combinacoes++;
-				imprimirTabuleiro();
-				System.out.println("Combinacoes: "+ combinacoes);
+				//imprimirTabuleiro();
+				//System.out.println("Combinacoes: "+ combinacoes);
 				posicoesRainhas[0]--;
 				zerarTabuleiro();
 				preencherTabuleiro();
