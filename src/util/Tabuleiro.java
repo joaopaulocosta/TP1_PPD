@@ -6,7 +6,8 @@ public class Tabuleiro implements Runnable {
 	private int combinacoes;
 	private int posicoesRainhas[];
 	private int cont;
-	private int colunaInicial, colunaFinal;	
+	private int colunaInicial, colunaFinal;
+	private StringBuffer stringCombinacoes;
 	
 	public Tabuleiro(int numRainhas, int colunaInicial, int colunaFinal){
 		this.colunaInicial = colunaInicial;
@@ -23,6 +24,7 @@ public class Tabuleiro implements Runnable {
 		
 		this.posicoesRainhas = new int[numRainhas + 1];
 		posicoesRainhas[0] = 0;
+		stringCombinacoes = new StringBuffer(" ");
 		
 	}
 	
@@ -38,26 +40,29 @@ public class Tabuleiro implements Runnable {
 		return combinacoes;
 	}
 	
+	public String getStringCombinacoes(){
+		return stringCombinacoes.toString();
+	}
+	
 	
 	//imprimi o tabuleiro, colocando R para uma celula que possui rainha, 1 para uma celula
 	//que esta sob campo de ataque de uma rainha e 0 para uma celula vazia e fora do campo de ataque
 	public void imprimirTabuleiro(){
-		System.out.println("");
 		for(Celula linha[] : this.matrizCelulas){
 			for(Celula celula : linha){
 				if(celula.getPossuiRainha()){
-					System.out.print("R ");
+					stringCombinacoes.append("R ");
 				}
 				else if(celula.getEstado()){
-					System.out.print("1 ");
+					stringCombinacoes.append("1 ");
 				}
 				else{
-					System.out.print("0 ");
+					stringCombinacoes.append("0 ");
 				}
 			}
-			System.out.println("");
+			stringCombinacoes.append("\n ");
 		}
-		
+		stringCombinacoes.append("\n ");
 	}
 	
 	
@@ -101,7 +106,7 @@ public class Tabuleiro implements Runnable {
 			 * combinação foi formada*/
 			if(posicoesRainhas[0] == numRainhas){
 				combinacoes++;
-				//imprimirTabuleiro();
+				imprimirTabuleiro();
 				//System.out.println("Combinacoes: "+ combinacoes);
 				posicoesRainhas[0]--;
 				zerarTabuleiro();

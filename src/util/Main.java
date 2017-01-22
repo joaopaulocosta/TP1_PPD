@@ -1,5 +1,6 @@
 package util;
 
+
 import java.util.Scanner;
 
 public class Main {
@@ -19,18 +20,18 @@ public class Main {
 				cont_Aux++;
 				System.out.println("Coluna Inicial: " + (i*aux) + " Coluna Final: "+ ((i*aux) + aux));
 				listaTabuleiros[i] = new Tabuleiro(numRainhas, (i*aux) , (i*aux) + aux );
-				listaThreads[i] = new Thread(listaTabuleiros[i]);
-				listaThreads[i].start();
 			}
 			else{
 				aux = numRainhas/numThreads;
-				System.out.println("Coluna Inicial: " + (i*aux + cont_Aux) + " Coluna Final: "+ ((i*aux + cont_Aux) + aux));
+				System.out.println("Thread "+ i +" Coluna Inicial: " + (i*aux + cont_Aux) + " Coluna Final: "+ ((i*aux + cont_Aux) + aux));
 				listaTabuleiros[i] = new Tabuleiro(numRainhas, (i*aux + cont_Aux) , (i*aux + cont_Aux) + aux );
-				listaThreads[i] = new Thread(listaTabuleiros[i]);
-				listaThreads[i].start();
 			}
+			
+			listaThreads[i] = new Thread(listaTabuleiros[i]);
+			listaThreads[i].start();
 		}
 		
+		System.out.println("");
 		
 		
 		for(int i = 0; i < numThreads; i++){
@@ -40,7 +41,11 @@ public class Main {
 				System.out.println("Erro no join");
 			}
 			numPossibilidades += listaTabuleiros[i].getCombinacoes();
+			System.out.println("\nCombinações da Thread "+i+"\n");
+			System.out.println(listaTabuleiros[i].getStringCombinacoes());
 		}
-		System.out.println(numPossibilidades + "combinações");
+		
+		
+		System.out.println("Total de "+numPossibilidades + " combinações");
 	}
 }
