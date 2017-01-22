@@ -1,18 +1,45 @@
+/*
+ * Trabalho 1 de PPD
+ * João Paulo Costa
+ * Renato Carvalho Alvarenga
+ * Vinícius Salles Pereira 
+ */
 package util;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A classe Tabuleiro.
+ */
 public class Tabuleiro implements Runnable {
+	
+	/** O numero de rainhas, que vai corresponder ao numero de linhas e colunas. */
 	private int numRainhas;
+	
+	/** A matriz de celulas que vai formar o tabuleiro. */
 	private Celula matrizCelulas[][];
+	
+	/** As combinacoes possiveis para o problema N-queen, de acordo com o numero de rainhas. */
 	private int combinacoes;
+	
+	/** O vetor que armazena a posicao das rainhas. */
 	private int posicoesRainhas[];
-	private int cont;
+	
+	/** As colunas iniciais e finais para cada thread. */
 	private int colunaInicial, colunaFinal;
+	
+	/** A StringBuffer que vai armazenar todas as combinacoes possiveis para a solucao do problema. */
 	private StringBuffer stringCombinacoes;
 	
+	/**
+	 * Construtor de um tabuleiro.
+	 *
+	 * @param numRainhas que representa o tamanho do problema
+	 * @param colunaInicial a coluna inicial designada a uma thread
+	 * @param colunaFinal a coluna final designada a uma thread
+	 */
 	public Tabuleiro(int numRainhas, int colunaInicial, int colunaFinal){
 		this.colunaInicial = colunaInicial;
 		this.colunaFinal = colunaFinal;
-		cont = 0;
 		this.numRainhas = numRainhas;
 		this.matrizCelulas = new Celula[numRainhas][numRainhas];
 		for(int i = 0; i < numRainhas; i++){
@@ -28,6 +55,9 @@ public class Tabuleiro implements Runnable {
 		
 	}
 	
+	/**
+	 * Zera tabuleiro quando alguma tentativa não deu certo.
+	 */
 	public void zerarTabuleiro(){
 		for(int i = 0; i < numRainhas; i++){
 			for(int j = 0; j < numRainhas; j++){
@@ -36,16 +66,29 @@ public class Tabuleiro implements Runnable {
 		}
 	}
 	
+	/**
+	 * Retorna as combinacoes encontradas para o problema.
+	 *
+	 * @return the combinacoes
+	 */
 	public int getCombinacoes(){
 		return combinacoes;
 	}
 	
+	/**
+	 * Gets the string combinacoes.
+	 *
+	 * @return the string combinacoes
+	 */
 	public String getStringCombinacoes(){
 		return stringCombinacoes.toString();
 	}
 	
 	
 	//imprimi o tabuleiro, colocando R para uma celula que possui rainha, 1 para uma celula
+	/**
+	 * Imprimir tabuleiro.
+	 */
 	//que esta sob campo de ataque de uma rainha e 0 para uma celula vazia e fora do campo de ataque
 	public void imprimirTabuleiro(){
 		for(Celula linha[] : this.matrizCelulas){
@@ -66,6 +109,9 @@ public class Tabuleiro implements Runnable {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	public void run(){
 		
 		int linha = 0;
@@ -128,6 +174,11 @@ public class Tabuleiro implements Runnable {
 	}
 	
 	
+	/**
+	 * Inserir rainha.
+	 *
+	 * @param coluna the coluna
+	 */
 	//inseri a rainha em uma determinada coluna, a linha é relacionada ao vetor de posicoes
 	public void inserirRainha(int coluna){
 		posicoesRainhas[0]++;
@@ -136,6 +187,9 @@ public class Tabuleiro implements Runnable {
 		
 	}
 	
+	/**
+	 * Preencher tabuleiro.
+	 */
 	//preenche o tabuleiro de acordo com o vetor de posicoes das rainhas
 	public void preencherTabuleiro(){
 		for(int i = 0; i < posicoesRainhas[0]; i++){
@@ -145,6 +199,12 @@ public class Tabuleiro implements Runnable {
 	}
 	
 	
+	/**
+	 * Preencher alcance.
+	 *
+	 * @param linha the linha
+	 * @param coluna the coluna
+	 */
 	//Função que preenche as celulas que estao no campo de ataque de uma rainha
 	public void preencherAlcance(int linha, int coluna){
 		

@@ -1,13 +1,31 @@
+/*
+ * 
+ */
 package util;
 
 
 import java.util.Scanner;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Main.
+ */
 public class Main {
+	
+	/** The num threads. */
 	private static int numThreads = 4;
+	
+	/** The num possibilidades. */
 	private static int numPossibilidades = 0;
+	
+	/** The num rainhas. */
 	private static int numRainhas = 8;
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args){
 		
 		Thread listaThreads[] = new Thread[numThreads];
