@@ -7,7 +7,7 @@ public class Main {
 	private static int num_Possibilidades = 0;
 	
 	public static void main(String[] args){
-		Tabuleiro tabuleiro = new Tabuleiro(4);
-		tabuleiro.acharCombinacao2(0,0);		
+		Tabuleiro tabuleiro = new Tabuleiro(10);
+		tabuleiro.acharCombinacao(0,0);		
 	}
 }
